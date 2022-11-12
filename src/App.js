@@ -1,8 +1,17 @@
 import React from "react";
 import "./App.css";
-import Boxes from "./components/boxes/boxes";
-function App() {
-  return <Boxes></Boxes>;
-}
 
-export default App;
+import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
+import Home from "./pages/Pokecards/PokeCards";
+export default function App() {
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={< Home/>} />
+          <Route path="*" element={<Navigate to="" />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+}

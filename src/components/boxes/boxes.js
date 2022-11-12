@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Img from "../../assets/Logo.png";
+
+const Logo = styled.img`
+  display: block;
+`;
+
 
 const Header = styled.h1`
   color: black;
@@ -13,43 +19,41 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 175px;
+  gap: 100px;
 `;
 const Box = styled.div`
+  transition: all 0.7s;
+  background-color: black;
   display: flex;
   flex-direction: column;
-  background-color: black;
-  border-radius: 4px;
-  padding: 0.5rem 0.5rem;
-  text-align: center;
-  text-color: white;
+  align-items: center;
+  border-radius: 10px;
+  padding: 14px 12px;
   color: white;
-  width: 170px;
-  height: 70px;
-  margin-bottom: 50px;
-  opacity: 0.75;
-  transition: all ease-in-out 300ms;
-  p {
-    margin: 0;
-  }
-  p:nth-child(1) {
-    margin-bottom: 15px;
-  }
-  &:hover {
-    cursor: pointer;
-    opacity: 1;
-  }
 `;
 
+function leadingZeros(n) {
+  if (n > 0 && n < 10) {
+    return `00${n}`;
+  } else if (n > 9 && n < 100) {
+    return `0${n}`;
+  } else {
+    return `${n}`;
+  }
+}
 export default function Boxes() {
   // object destructuring
-  const [allPokemons, setAllPokemons] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
+  const [allPokemons, setAllPokemons] = useState([]);
 
   return (
     <fragment>
+      <Logo src={Img} alt="Logo"/>
       <button
         onClick={() => {
-          setAllPokemons([...allPokemons, allPokemons.length]);
+          setAllPokemons([
+            ...allPokemons,
+            leadingZeros(allPokemons.length + 1),
+          ]);
           console.log(allPokemons);
         }}
       >
@@ -58,7 +62,10 @@ export default function Boxes() {
       <Header>Blazedex</Header>
       <Container>
         {allPokemons.map((allPokemons, i) => (
-          <Box key={i}> {`id: ${allPokemons + 1}`} </Box>
+          <Box key={i}>
+            {`#${allPokemons}`}
+            <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${allPokemons}.png`} alt="Pokemon"></img>
+          </Box>
         ))}
       </Container>
     </fragment>
