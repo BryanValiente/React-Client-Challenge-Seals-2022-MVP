@@ -1,13 +1,8 @@
-import React from 'react';
-import './App.css';
-
+import React from "react";
+import "./App.css";
+import Boxes from "./components/boxes/boxes";
 function App() {
-  return (
-    <div className="App">
-      {/* <Header /> */}
-      <h1>Pokedex</h1>
-    </div>
-  );
+  return <Boxes></Boxes>;
 }
 
 export default App;
