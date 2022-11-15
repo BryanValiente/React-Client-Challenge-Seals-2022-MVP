@@ -17,7 +17,7 @@ const Container = styled.div`
   gap: 170px;
 `;
 
-const Box = styled.div`
+const Grass = styled.div`
   display: flex;
   flex-direction: column;
   align-items: space-between;
@@ -94,8 +94,7 @@ export default function PokemonCards() {
       console.log("NOSHOT");
       setAllPokemons(Array);
       console.log("NOSHOT");
-      console.log(Array);
-      console.log(allPokemons);
+      console.log(Array[0]);
     }
   }
   Hold();
@@ -121,20 +120,21 @@ export default function PokemonCards() {
       </button>
       <Header>Blazedex</Header>
       <Container>
-        {allPokemons.map((allPokemons, i) => (
-          <Box key={i}>
-            <p>{`Pokemon #${Array[i].id}`}</p>
+        {Array.map((Array, i) => (
+          <Grass key={i}>
+            <p>{`Pokemon #${Array[0].id}`}</p>
             <img
               src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${Array[i].id}.png`}
               alt=""
             ></img>
             <div>
-              <p>{Array[i].name[0].toUpperCase()+Array[i].name.slice(1)}</p>
+              { Array[i].name[0] === "bulbasaur" ? <p>NO</p> : <p>{Array[i].name[0].toUpperCase()+Array[i].name.slice(1)}</p>}
+              
             </div>
             <div>
               <p> {Array[i].type[0].toUpperCase()+Array[i].type.slice(1)}</p>
             </div>
-          </Box>
+          </Grass>
         ))}
       </Container>
     </Fragment>
