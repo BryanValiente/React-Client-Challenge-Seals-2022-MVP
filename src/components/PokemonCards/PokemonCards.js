@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
+import React from "react";
 import { useState, Fragment } from "react";
 
 import Grooves from "../../assets/music/MW.mp3";
@@ -16,11 +16,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   gap: 170px;
 `;
-const Black = styled.div`
-  background-color: black;
-  width: 100px;
-  height: 100px;
-`;
+
 const Box = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,12 +43,10 @@ const Box = styled.div`
 `;
 
 export default function PokemonCards() {
-  // the Limit as number of pokemons -> 151
-  const discovered = 151;
 
   //Place Holder Array so that React won't have to rerender with Usestate
-  let Array = [{ name: "bulbasaur", id: "001" }];
-  let PokeNames = [];
+  let Array = [{ name: "bulbasaur", id: "001", type: "grass"}];
+
 
   //This function is used to add 0s at the beginning of the nubmer if need be.
   // when n, it becomes 00n
@@ -72,14 +66,10 @@ export default function PokemonCards() {
   };
 
   // Automatically makes the list of pokemon shown the Original 151
-
-  //Setting up a useState so that thee map function can show 151 Pokemons by default.
-  const [allPokemons, setAllPokemons] = useState(Array);
-
-  // Fetches Data from each pokemon until the limit is reached
+    // Fetches Data from each pokemon until the limit is reached
   const fetchPokemonData = async () => {
-    for (let i = 1; i <= discovered; i++) {
-      await getPokemonData(i);
+    for (let i = 1; i <= 150; i++) {
+      await getPokemonData(i+1);
     }
   };
 
@@ -88,15 +78,19 @@ export default function PokemonCards() {
     const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
     const res = await fetch(url);
     const data = await res.json();
-    Array.splice(id, 0, { name: data.name, id: append0s(id) });
-    console.log(Array.length);
+    Array.splice(id, 0, { name: data.name, id: append0s(id), type: data.types[0].type.name });
+
     // console.log(data.name);
   };
+  //Setting up a useState so that thee map function can show 151 Pokemons by default.
+  const [allPokemons, setAllPokemons] = useState(Array);
+
+
   //This is so that it runs once and doesn't run again from the useState change
 
   async function Hold() {
     await fetchPokemonData();
-    if (Array.length === 152) {
+    if (Array.length === 151) {
       console.log("NOSHOT");
       setAllPokemons(Array);
       console.log("NOSHOT");
@@ -129,13 +123,16 @@ export default function PokemonCards() {
       <Container>
         {allPokemons.map((allPokemons, i) => (
           <Box key={i}>
-            <p>{`Pokemon #${allPokemons.id}`}</p>
+            <p>{`Pokemon #${Array[i].id}`}</p>
             <img
-              src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${allPokemons.id}.png`}
+              src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${Array[i].id}.png`}
               alt=""
             ></img>
             <div>
-              <p>{allPokemons.name}</p>
+              <p>{Array[i].name[0].toUpperCase()+Array[i].name.slice(1)}</p>
+            </div>
+            <div>
+              <p> {Array[i].type[0].toUpperCase()+Array[i].type.slice(1)}</p>
             </div>
           </Box>
         ))}
