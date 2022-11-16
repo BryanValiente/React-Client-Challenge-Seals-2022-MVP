@@ -1,8 +1,18 @@
 import React from "react";
 import "./App.css";
-import Boxes from "./components/PokemonCards/PokemonCards";
+import HomePage from "./pages/HomePage/HomePage";
+import styled from "styled-components";
+
+const BackgroundStyle = styled.div`
+  background-color: #36393f;
+`;
+
 function App() {
-  return <Boxes></Boxes>;
+  return (
+    <BackgroundStyle>
+      <HomePage></HomePage>;
+    </BackgroundStyle>
+  );
 }
 
 export default App;
