@@ -122,17 +122,17 @@ export default function PokemonCards() {
       <Container>
         {Array.map((Array, i) => (
           <Grass key={i}>
-            <p>{`Pokemon #${Array[0].id}`}</p>
+            <p>{`Pokemon #${Array.id}`}</p>
             <img
-              src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${Array[i].id}.png`}
+              src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${Array.id}.png`}
               alt=""
             ></img>
             <div>
-              { Array[i].name[0] === "bulbasaur" ? <p>NO</p> : <p>{Array[i].name[0].toUpperCase()+Array[i].name.slice(1)}</p>}
+              { Array[i].name[0] === "bulbasaur" ? <p>NO</p> : <p>{Array.name[0].toUpperCase()+Array.name.slice(1)}</p>}
               
             </div>
             <div>
-              <p> {Array[i].type[0].toUpperCase()+Array[i].type.slice(1)}</p>
+              <p> {Array.type[0].toUpperCase()+Array.type.slice(1)}</p>
             </div>
           </Grass>
         ))}
