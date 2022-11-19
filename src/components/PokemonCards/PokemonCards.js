@@ -3,10 +3,13 @@ import React from "react";
 import { useState, Fragment } from "react";
 import "../PokemonCards/PokemonCards.css";
 import Grooves from "../../assets/music/MW.mp3";
+import api from "../../services/api";
 const Header = styled.h1`
-  color: black;
-  font-size 24px;
+  color: #0a285f;
+  font-size: 48px;
   font-weight: 600;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   text-align: center;
   margin-bottom: 25px;
   align-items: center;
@@ -26,13 +29,12 @@ const Header = styled.h1`
   align-items: center;
   justify-content: center;
   align-items: center;
-
 `;
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 170px;
+  gap: 130px;
   align-items: center;
   justify-content: center;
   align-items: center;
@@ -65,17 +67,15 @@ const Grass = styled.div`
   background-color: black;
   border-radius: 4px;
   text-align: center;
-  background-color: rgb(222, 253, 224);
-  width: 170px;
-  opacity: 0.75;
-  transition: all ease-in-out 300ms;
+  background-color: #ffcc00;
+  width: 300px;
   align-items: center;
-  box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
   p {
     margin: 0;
   }
   p:nth-child(1) {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    color: #0a285f;
   }
   &:hover {
     cursor: pointer;
@@ -89,16 +89,13 @@ const Grass = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const Search = styled.p`
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 30px;
+  `;
 
 export default function PokemonCards() {
-  //Place Holder Array so that React won't have to rerender with Usestate
-  // let Array = [{ name: "bulbasaur", id: "001", type: "grass" }];
-
-  //This function is used to add 0s at the beginning of the nubmer if need be.
-  // when n, it becomes 00n
-  //when n1n2, it becomes 0n1n2
-  //when n1n2n3, it is left alone.
-
   const append0s = (n) => {
     if (n >= 152) {
       return null;
@@ -111,46 +108,14 @@ export default function PokemonCards() {
     }
   };
 
-  // Automatically makes the list of pokemon shown the Original 151
-  // Fetches Data from each pokemon until the limit is reached
-
-  // const fetchPokemonData = async () => {
-  //   for (let i = 1; i <= 150; i++) {
-  //     await getPokemonData(i + 1);
-  //   }
-  // };
-
-  //Sends a request from pokeapi to get data from a specific Pokemon
-
-  // const getPokemonData = async (id) => {
-  //   const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-  //   const res = await fetch(url);
-  //   const data = await res.json();
-  //   Array.splice(id, 0, {
-  //     name: data.name,
-  //     id: append0s(id),
-  //     type: data.types[0].type.name,
-  //   });
-
-  // console.log(data.name);
-  // };
-  //Setting up a useState so that thee map function can show 151 Pokemons by default.
   const [allPokemons, setAllPokemons] = useState([]);
-
-  //This is so that it runs once and doesn't run again from the useState change
 
   async function GetAllPokemans() {
     const url = `https://pokeapi.co/api/v2/generation/1/`;
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data.pokemon_species);
     setAllPokemons(data.pokemon_species);
-
-    // console.log(allPokemons);
   }
-  // console.log(allPokemons);
-  // data.pokemon_species[i]>.name
-  // console.log(append0s(allPokemons.indexOf(allPokemons[0].pokemon_species[0].name)));
 
   GetAllPokemans();
   return (
@@ -163,9 +128,11 @@ export default function PokemonCards() {
         frameBorder="0"
         allowFullScreen
       ></iframe>
-      {/* Adds a Button so that when clicked appends a number into the useState
-      allPokemons. That number will be n+1 */}
       <Header>Blazedex</Header>
+      <Search>
+        {" "}
+        To Search for a specific Pokemon do "CMD + F" or "CTRL + F"{" "}
+      </Search>
       <Container>
         {allPokemons
           .sort((a, b) => {
@@ -186,12 +153,6 @@ export default function PokemonCards() {
               <div>
                 <p>
                   {Currentval.name[0].toUpperCase() + Currentval.name.slice(1)}
-                </p>
-              </div>
-              <div>
-                <p>
-                  {" "}
-                  {/* {allPokemons.type[0].toUpperCase() + allPokemons.type.slice(1)} */}
                 </p>
               </div>
             </Grass>

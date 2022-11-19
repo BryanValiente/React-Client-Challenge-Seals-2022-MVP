@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import styled from "styled-components";
 
 const BackgroundStyle = styled.div`
-  background-color: #36393f;
+  background-color: #0075BE;
 `;
 
 function App() {
