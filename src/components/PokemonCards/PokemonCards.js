@@ -4,6 +4,7 @@ import { useState, Fragment } from "react";
 import "../PokemonCards/PokemonCards.css";
 import Grooves from "../../assets/music/MW.mp3";
 import { keyframes } from "styled-components";
+import PokemonInfo from "../PokemonInfo/PokemonInfo";
 
 const moveAnimation = keyframes`
 0%{ bottom: 0px;}
@@ -39,7 +40,7 @@ const Container = styled.div`
 `;
 
 const AnimatedImage = styled.img`
-position:relative;
+  position: relative;
   animation-name: ${moveAnimation};
   animation-duration: 3s;
   animation-iteration-count: infinite;
@@ -86,7 +87,7 @@ const Team = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 130px;
+  gap: 10px;
   width: 76.9%;
   text-align: center;
   align-items: center;
@@ -96,8 +97,8 @@ const Team = styled.div`
   justify-content: center;
   margin: auto;
   border-radius: 4px;
-  margin-bottom: 30px;
-  height: 860px;
+  margin-bottom: 1px;
+  height: 720px;
 `;
 
 export default function PokemonCards() {
@@ -121,8 +122,8 @@ export default function PokemonCards() {
   }); */
 
   const onAddPokemon = (newPokemon) => {
-    if(selectedPokemon.length < 6){
-      setSelectedPokemon([...selectedPokemon, newPokemon])
+    if (selectedPokemon.length < 6) {
+      setSelectedPokemon([...selectedPokemon, newPokemon]);
     }
   };
 
@@ -164,7 +165,11 @@ export default function PokemonCards() {
             return x - y;
           })
           .map((Currentval, i) => (
-            <PokemonBox key={i} Currentval={Currentval} onAddPokemon={onAddPokemon} />
+            <PokemonBox
+              key={i}
+              Currentval={Currentval}
+              onAddPokemon={onAddPokemon}
+            />
           ))}
       </Container>
     </Fragment>
@@ -185,8 +190,6 @@ const PokemonBox = ({ Currentval, onAddPokemon }) => {
     }
   };
 
-
-
   return (
     <Box>
       <p>{`Pokemon #${append0s(Currentval.url.split("/")[6])}`}</p>
@@ -200,7 +203,13 @@ const PokemonBox = ({ Currentval, onAddPokemon }) => {
       <div>
         <p>{Currentval.name[0].toUpperCase() + Currentval.name.slice(1)}</p>
       </div>
-      <button id="btn" onClick={() => {onAddPokemon(Currentval)}}>
+      <PokemonInfo number={Currentval.url.split("/")[6]} />
+      <button
+        id="btn"
+        onClick={() => {
+          onAddPokemon(Currentval);
+        }}
+      >
         {" "}
         add pokemon
       </button>
