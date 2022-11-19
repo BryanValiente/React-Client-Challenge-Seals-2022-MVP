@@ -17,18 +17,6 @@ const Header = styled.h1`
   align-items: center;
   justify-content: center;
   align-items: center;
-  justify-content: center;
-  align-items: center;
-  justify-content: center;
-  align-items: center;
-  justify-content: center;
-  align-items: center;
-  justify-content: center;
-  align-items: center;
-  justify-content: center;
-  align-items: center;
-  justify-content: center;
-  align-items: center;
 `;
 const Container = styled.div`
   display: flex;
@@ -93,7 +81,25 @@ const Search = styled.p`
   text-align: center;
   font-size: 20px;
   margin-bottom: 30px;
-  `;
+`;
+
+const Team = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 130px;
+  width: 76.9%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  background-color: #ed1729;
+  justify-content: center;
+  margin: auto;
+  border-radius: 4px;
+  margin-bottom: 30px;
+  height: 600px;
+`;
 
 export default function PokemonCards() {
   const append0s = (n) => {
@@ -118,6 +124,14 @@ export default function PokemonCards() {
   }
 
   GetAllPokemans();
+  const parent = document.getElementById("parent");
+  const child = document.getElementById("child");
+  const btn = document.getElementById("btn");
+
+  btn.addEventListener("click", () => {
+    parent.appendChild(child);
+  });
+
   return (
     <Fragment>
       <iframe
@@ -129,11 +143,14 @@ export default function PokemonCards() {
         allowFullScreen
       ></iframe>
       <Header>Blazedex</Header>
+
+      <Team id="parent"> empty for now</Team>
+      <Header> Pokemans </Header>
       <Search>
         {" "}
         To Search for a specific Pokemon do "CMD + F" or "CTRL + F"{" "}
       </Search>
-      <Container>
+      <Container id="child">
         {allPokemons
           .sort((a, b) => {
             const x = parseInt(a.url.split("/")[6]);
@@ -155,10 +172,11 @@ export default function PokemonCards() {
                   {Currentval.name[0].toUpperCase() + Currentval.name.slice(1)}
                 </p>
               </div>
+              <button id="btn"> add pokemon</button>
             </Grass>
           ))}
       </Container>
     </Fragment>
   );
 }
-//test 
+//test
