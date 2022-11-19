@@ -16,7 +16,7 @@ import psychic from "../../assets/images/Psychic.png";
 import steel from "../../assets/images/Steel.png";
 import water from "../../assets/images/Water.png";
 import grass from "../../assets/images/Grass.png";
-
+import rock from "../../assets/images/Rock.png";
 export default function PokemonInfo(props) {
   const [types, setTypes] = useState([]);
 
@@ -43,7 +43,6 @@ export default function PokemonInfo(props) {
     <>
       {types.map((t) => (
         <div id="info">
-          Type:{" "}
           {t == "grass" ? (
             <img src={grass} style={{ width: 50, height: 50 }} />
           ) : (
@@ -51,7 +50,183 @@ export default function PokemonInfo(props) {
               {t == "poison" ? (
                 <img src={poison} style={{ width: 50, height: 50 }} />
               ) : (
-                <p> error </p>
+                <div>
+                  {t == "fire" ? (
+                    <img src={fire} style={{ width: 50, height: 50 }} />
+                  ) : (
+                    <div>
+                      {t == "water" ? (
+                        <img src={water} style={{ width: 50, height: 50 }} />
+                      ) : (
+                        <div>
+                          {t == "bug" ? (
+                            <img src={bug} style={{ width: 50, height: 50 }} />
+                          ) : (
+                            <div>
+                              {t == "normal" ? (
+                                <img
+                                  src={normal}
+                                  style={{ width: 50, height: 50 }}
+                                />
+                              ) : (
+                                <div>
+                                  {t == "electric" ? (
+                                    <img
+                                      src={electric}
+                                      style={{ width: 50, height: 50 }}
+                                    />
+                                  ) : (
+                                    <div>
+                                      {t == "ground" ? (
+                                        <img
+                                          src={ground}
+                                          style={{ width: 50, height: 50 }}
+                                        />
+                                      ) : (
+                                        <div>
+                                          {t == "rock" ? (
+                                            <img
+                                              src={rock}
+                                              style={{ width: 50, height: 50 }}
+                                            />
+                                          ) : (
+                                            <div>
+                                              {t == "fairy" ? (
+                                                <img
+                                                  src={fairy}
+                                                  style={{
+                                                    width: 50,
+                                                    height: 50,
+                                                  }}
+                                                />
+                                              ) : (
+                                                <div>
+                                                  {t == "fighting" ? (
+                                                    <img
+                                                      src={fighting}
+                                                      style={{
+                                                        width: 50,
+                                                        height: 50,
+                                                      }}
+                                                    />
+                                                  ) : (
+                                                    <div>
+                                                      {t == "psychic" ? (
+                                                        <img
+                                                          src={psychic}
+                                                          style={{
+                                                            width: 50,
+                                                            height: 50,
+                                                          }}
+                                                        />
+                                                      ) : (
+                                                        <div>
+                                                          {t == "dark" ? (
+                                                            <img
+                                                              src={dark}
+                                                              style={{
+                                                                width: 50,
+                                                                height: 50,
+                                                              }}
+                                                            />
+                                                          ) : (
+                                                            <div>
+                                                              {t == "steel" ? (
+                                                                <img
+                                                                  src={steel}
+                                                                  style={{
+                                                                    width: 50,
+                                                                    height: 50,
+                                                                  }}
+                                                                />
+                                                              ) : (
+                                                                <div>
+                                                                  {t ==
+                                                                  "ghost" ? (
+                                                                    <img
+                                                                      src={
+                                                                        ghost
+                                                                      }
+                                                                      style={{
+                                                                        width: 50,
+                                                                        height: 50,
+                                                                      }}
+                                                                    />
+                                                                  ) : (
+                                                                    <div>
+                                                                      {t ==
+                                                                      "ice" ? (
+                                                                        <img
+                                                                          src={
+                                                                            ice
+                                                                          }
+                                                                          style={{
+                                                                            width: 50,
+                                                                            height: 50,
+                                                                          }}
+                                                                        />
+                                                                      ) : (
+                                                                        <div>
+                                                                          {t ==
+                                                                          "dragon" ? (
+                                                                            <img
+                                                                              src={
+                                                                                dragon
+                                                                              }
+                                                                              style={{
+                                                                                width: 50,
+                                                                                height: 50,
+                                                                              }}
+                                                                            />
+                                                                          ) : (
+                                                                            <div>
+                                                                              {t ==
+                                                                              "ground" ? (
+                                                                                <img
+                                                                                  src={
+                                                                                    ground
+                                                                                  }
+                                                                                  style={{
+                                                                                    width: 50,
+                                                                                    height: 50,
+                                                                                  }}
+                                                                                />
+                                                                              ) : (
+                                                                                <>
+
+                                                                                </>
+                                                                              )}
+                                                                            </div>
+                                                                          )}
+                                                                        </div>
+                                                                      )}
+                                                                    </div>
+                                                                  )}
+                                                                </div>
+                                                              )}
+                                                            </div>
+                                                          )}
+                                                        </div>
+                                                      )}
+                                                    </div>
+                                                  )}
+                                                </div>
+                                              )}
+                                            </div>
+                                          )}
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           )}
