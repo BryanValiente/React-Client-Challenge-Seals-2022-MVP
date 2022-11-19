@@ -1,12 +1,17 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
+import HomePage from "./pages/HomePage/HomePage";
+import styled from "styled-components";
+
+const BackgroundStyle = styled.div`
+  background-color: #0075BE;
+`;
 
 function App() {
   return (
-    <div className="App">
-      {/* <Header /> */}
-      <h1>Pokedex</h1>
-    </div>
+    <BackgroundStyle>
+      <HomePage></HomePage>;
+    </BackgroundStyle>
   );
 }
 
