@@ -4,6 +4,8 @@ import { useState, Fragment } from "react";
 import "../PokemonCards/PokemonCards.css";
 import Grooves from "../../assets/music/MW.mp3";
 import { keyframes } from "styled-components";
+import PokemonInfo from "../PokemonInfo/PokemonInfo";
+
 
 // animation
 const moveAnimation = keyframes`
@@ -102,7 +104,7 @@ const Team = styled.div`
   margin: auto;
   border-radius: 4px;
   margin-bottom: 1px;
-  height: 650px;
+  height: 720px;
 `;
 
 export default function PokemonCards() {
@@ -203,6 +205,7 @@ const PokemonBox = ({ Currentval, onAddPokemon }) => {
       <div>
         <p>{Currentval.name[0].toUpperCase() + Currentval.name.slice(1)}</p>
       </div>
+      <PokemonInfo number={Currentval.url.split("/")[6]} />
       <button
         id="btn"
         onClick={() => {
