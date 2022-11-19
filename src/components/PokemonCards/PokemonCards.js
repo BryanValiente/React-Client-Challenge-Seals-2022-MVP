@@ -5,6 +5,7 @@ import "../PokemonCards/PokemonCards.css";
 import Grooves from "../../assets/music/MW.mp3";
 import { keyframes } from "styled-components";
 
+// animation
 const moveAnimation = keyframes`
 0%{ bottom: 0px;}
 
@@ -12,6 +13,7 @@ const moveAnimation = keyframes`
 
 100%{ bottom: 0px;}
 `;
+// header
 const Header = styled.h1`
   color: #0a285f;
   font-size: 48px;
@@ -26,6 +28,7 @@ const Header = styled.h1`
   justify-content: center;
   align-items: center;
 `;
+// all pokemon container
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -37,15 +40,16 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
+// image animation
 const AnimatedImage = styled.img`
-position:relative;
+  position: relative;
   animation-name: ${moveAnimation};
   animation-duration: 3s;
   animation-iteration-count: infinite;
   align-items: center;
   justify-content: center;
 `;
+// singular pokemon box
 const Box = styled.div`
   display: flex;
   flex-direction: column;
@@ -76,34 +80,35 @@ const Box = styled.div`
   justify-content: center;
   align-items: center;
 `;
+// search style
 const Search = styled.p`
   text-align: center;
   font-size: 20px;
   margin-bottom: 30px;
 `;
-
+// 6 pokemon
 const Team = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 130px;
+  gap: 10px;
   width: 76.9%;
   text-align: center;
   align-items: center;
   justify-content: center;
   align-items: center;
-  background-color: #ed1729;
+  background-color: #d5a100;
   justify-content: center;
   margin: auto;
   border-radius: 4px;
-  margin-bottom: 30px;
-  height: 860px;
+  margin-bottom: 1px;
+  height: 650px;
 `;
 
 export default function PokemonCards() {
   const [allPokemons, setAllPokemons] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState([]);
-
+  // grabbing all of the pokemons from generation 1
   async function GetAllPokemans() {
     const url = `https://pokeapi.co/api/v2/generation/1/`;
     const res = await fetch(url);
@@ -112,22 +117,16 @@ export default function PokemonCards() {
   }
 
   GetAllPokemans();
-  /* const parent = document.getElementById("parent");
-  const child = document.getElementById("child");
-  const btn = document.getElementById("btn");
-
-  btn.addEventListener("click", () => {
-    parent.appendChild(child);
-  }); */
 
   const onAddPokemon = (newPokemon) => {
-    if(selectedPokemon.length < 6){
-      setSelectedPokemon([...selectedPokemon, newPokemon])
+    if (selectedPokemon.length < 6) {
+      setSelectedPokemon([...selectedPokemon, newPokemon]);
     }
   };
 
   return (
     <Fragment>
+      {/* music */}
       <iframe
         title="Нет!"
         src={Grooves}
@@ -136,13 +135,15 @@ export default function PokemonCards() {
         frameBorder="0"
         allowFullScreen
       ></iframe>
+      {/* header */}
       <Header>Blazedex</Header>
-
+      {/* team box */}
       <Team id="parent">
         {selectedPokemon.length === 0
           ? "empty for now"
           : selectedPokemon
               .sort((a, b) => {
+                // grab the number of the pokemon
                 const x = parseInt(a.url.split("/")[6]);
                 const y = parseInt(b.url.split("/")[6]);
                 return x - y;
@@ -164,7 +165,11 @@ export default function PokemonCards() {
             return x - y;
           })
           .map((Currentval, i) => (
-            <PokemonBox key={i} Currentval={Currentval} onAddPokemon={onAddPokemon} />
+            <PokemonBox
+              key={i}
+              Currentval={Currentval}
+              onAddPokemon={onAddPokemon}
+            />
           ))}
       </Container>
     </Fragment>
@@ -185,8 +190,6 @@ const PokemonBox = ({ Currentval, onAddPokemon }) => {
     }
   };
 
-
-
   return (
     <Box>
       <p>{`Pokemon #${append0s(Currentval.url.split("/")[6])}`}</p>
@@ -200,9 +203,23 @@ const PokemonBox = ({ Currentval, onAddPokemon }) => {
       <div>
         <p>{Currentval.name[0].toUpperCase() + Currentval.name.slice(1)}</p>
       </div>
-      <button id="btn" onClick={() => {onAddPokemon(Currentval)}}>
+      <button
+        id="btn"
+        onClick={() => {
+          onAddPokemon(Currentval);
+        }}
+      >
         {" "}
-        add pokemon
+        Add Pokeman
+      </button>
+      <button
+        id="btn"
+        onClick={() => {
+          onAddPokemon(Currentval);
+        }}
+      >
+        {" "}
+        Add Pokeman
       </button>
     </Box>
   );
