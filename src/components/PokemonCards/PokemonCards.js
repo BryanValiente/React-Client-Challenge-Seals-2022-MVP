@@ -3,7 +3,15 @@ import React from "react";
 import { useState, Fragment } from "react";
 import "../PokemonCards/PokemonCards.css";
 import Grooves from "../../assets/music/MW.mp3";
-import api from "../../services/api";
+import { keyframes } from "styled-components";
+
+const moveAnimation = keyframes`
+0%{ bottom: 0px;}
+
+50% { bottom: 20px;}
+
+100%{ bottom: 0px;}
+`;
 const Header = styled.h1`
   color: #0a285f;
   font-size: 48px;
@@ -31,23 +39,14 @@ const Container = styled.div`
 `;
 
 const AnimatedImage = styled.img`
-  animation: moveUpandDown 1s linear infinite;
-  @keyframes moveUpandDown {
-    0%,
-    100% {
-      bottom: 0;
-    }
-    50% {
-      bottom: 100;
-    }
-  }
+position:relative;
+  animation-name: ${moveAnimation};
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
   align-items: center;
   justify-content: center;
-  align-items: center;
-  justify-content: center;
-  align-items: center;
 `;
-const Grass = styled.div`
+const Box = styled.div`
   display: flex;
   flex-direction: column;
   align-items: space-between;
@@ -98,23 +97,12 @@ const Team = styled.div`
   margin: auto;
   border-radius: 4px;
   margin-bottom: 30px;
-  height: 600px;
+  height: 860px;
 `;
 
 export default function PokemonCards() {
-  const append0s = (n) => {
-    if (n >= 152) {
-      return null;
-    } else if (n < 10) {
-      return `00${n}`;
-    } else if (n > 9 && n < 100) {
-      return `0${n}`;
-    } else if (n > 99) {
-      return `${n}`;
-    }
-  };
-
   const [allPokemons, setAllPokemons] = useState([]);
+  const [selectedPokemon, setSelectedPokemon] = useState([]);
 
   async function GetAllPokemans() {
     const url = `https://pokeapi.co/api/v2/generation/1/`;
@@ -124,13 +112,19 @@ export default function PokemonCards() {
   }
 
   GetAllPokemans();
-  const parent = document.getElementById("parent");
+  /* const parent = document.getElementById("parent");
   const child = document.getElementById("child");
   const btn = document.getElementById("btn");
 
   btn.addEventListener("click", () => {
     parent.appendChild(child);
-  });
+  }); */
+
+  const onAddPokemon = (newPokemon) => {
+    if(selectedPokemon.length < 6){
+      setSelectedPokemon([...selectedPokemon, newPokemon])
+    }
+  };
 
   return (
     <Fragment>
@@ -144,7 +138,19 @@ export default function PokemonCards() {
       ></iframe>
       <Header>Blazedex</Header>
 
-      <Team id="parent"> empty for now</Team>
+      <Team id="parent">
+        {selectedPokemon.length === 0
+          ? "empty for now"
+          : selectedPokemon
+              .sort((a, b) => {
+                const x = parseInt(a.url.split("/")[6]);
+                const y = parseInt(b.url.split("/")[6]);
+                return x - y;
+              })
+              .map((Currentval, i) => (
+                <PokemonBox key={i} Currentval={Currentval} />
+              ))}
+      </Team>
       <Header> Pokemans </Header>
       <Search>
         {" "}
@@ -158,25 +164,46 @@ export default function PokemonCards() {
             return x - y;
           })
           .map((Currentval, i) => (
-            <Grass key={i}>
-              <p>{`Pokemon #${append0s(Currentval.url.split("/")[6])}`}</p>
-              <AnimatedImage
-                className="pokemonImg"
-                src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${append0s(
-                  Currentval.url.split("/")[6]
-                )}.png`}
-                alt=""
-              ></AnimatedImage>
-              <div>
-                <p>
-                  {Currentval.name[0].toUpperCase() + Currentval.name.slice(1)}
-                </p>
-              </div>
-              <button id="btn"> add pokemon</button>
-            </Grass>
+            <PokemonBox key={i} Currentval={Currentval} onAddPokemon={onAddPokemon} />
           ))}
       </Container>
     </Fragment>
   );
 }
 //test
+
+const PokemonBox = ({ Currentval, onAddPokemon }) => {
+  const append0s = (n) => {
+    if (n >= 152) {
+      return null;
+    } else if (n < 10) {
+      return `00${n}`;
+    } else if (n > 9 && n < 100) {
+      return `0${n}`;
+    } else if (n > 99) {
+      return `${n}`;
+    }
+  };
+
+
+
+  return (
+    <Box>
+      <p>{`Pokemon #${append0s(Currentval.url.split("/")[6])}`}</p>
+      <AnimatedImage
+        className="pokemonImg"
+        src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${append0s(
+          Currentval.url.split("/")[6]
+        )}.png`}
+        alt=""
+      ></AnimatedImage>
+      <div>
+        <p>{Currentval.name[0].toUpperCase() + Currentval.name.slice(1)}</p>
+      </div>
+      <button id="btn" onClick={() => {onAddPokemon(Currentval)}}>
+        {" "}
+        add pokemon
+      </button>
+    </Box>
+  );
+};
