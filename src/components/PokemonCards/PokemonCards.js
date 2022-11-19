@@ -6,7 +6,6 @@ import Grooves from "../../assets/music/MW.mp3";
 import { keyframes } from "styled-components";
 import PokemonInfo from "../PokemonInfo/PokemonInfo";
 
-
 // animation
 const moveAnimation = keyframes`
 0%{ bottom: 0px;}
@@ -67,7 +66,7 @@ const Box = styled.div`
     margin: 0;
   }
   p:nth-child(1) {
-    margin-bottom: 5px;
+    margin-bottom: 1px;
     color: #0a285f;
   }
   &:hover {
@@ -104,7 +103,7 @@ const Team = styled.div`
   margin: auto;
   border-radius: 4px;
   margin-bottom: 1px;
-  height: 720px;
+  height: 750px;
 `;
 
 export default function PokemonCards() {
@@ -139,10 +138,12 @@ export default function PokemonCards() {
       ></iframe>
       {/* header */}
       <Header>Blazedex</Header>
+      {/* team */}
+      <Header> Your Team </Header>
       {/* team box */}
       <Team id="parent">
         {selectedPokemon.length === 0
-          ? "empty for now"
+          ? "is empty for now"
           : selectedPokemon
               .sort((a, b) => {
                 // grab the number of the pokemon
@@ -215,15 +216,7 @@ const PokemonBox = ({ Currentval, onAddPokemon }) => {
         {" "}
         Add Pokeman
       </button>
-      <button
-        id="btn"
-        onClick={() => {
-          onAddPokemon(Currentval);
-        }}
-      >
-        {" "}
-        Add Pokeman
-      </button>
+   
     </Box>
   );
 };
