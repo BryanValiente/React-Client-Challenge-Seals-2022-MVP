@@ -6,6 +6,7 @@ import Grooves from "../../assets/music/MW.mp3";
 import { keyframes } from "styled-components";
 import PokemonInfo from "../PokemonInfo/PokemonInfo";
 
+
 const moveAnimation = keyframes`
 0%{ bottom: 0px;}
 
